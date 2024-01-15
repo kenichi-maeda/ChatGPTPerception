@@ -9,9 +9,9 @@ from EXP.util import Util
 
 class Figure1:
 
-  DELTA_MIN = 20
-  DELTA_MAX = 80
-  SIZE = (100, 100)
+  DELTA_MIN = 420
+  DELTA_MAX = 480
+  SIZE = (1000, 1000)
 
   @staticmethod
   def position_common_scale(flags=[False, False], preset=None):
@@ -287,11 +287,16 @@ class Figure1:
     rr, cc = skimage.draw.line(Y, X, int(np.round(END[0])), int(np.round(END[1])))
     image[rr, cc] = 1
 
+    structuring_element = skimage.morphology.disk(1) 
+    image = skimage.morphology.dilation(image, structuring_element)
+
     second_angle = first_angle+ANGLE
     theta = -(np.pi / 180.0) * second_angle
     END = (Y - LENGTH * np.cos(theta), X - LENGTH * np.sin(theta))
     rr, cc = skimage.draw.line(Y, X, int(np.round(END[0])), int(np.round(END[1])))
     image[rr, cc] = 1
+
+    image = skimage.morphology.dilation(image, structuring_element)
 
     sparse = [Y, X, ANGLE, first_angle]
 

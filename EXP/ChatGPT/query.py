@@ -20,7 +20,7 @@ class Query:
         base64_image = base64.b64encode(png.tobytes()).decode('utf-8')
 
         # OpenAI API Key
-        api_key = "********************************************"
+        api_key = "***********************"
 
         headers = {
             "Content-Type": "application/json",
